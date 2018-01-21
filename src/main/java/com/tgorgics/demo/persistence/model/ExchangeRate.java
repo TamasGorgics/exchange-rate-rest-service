@@ -1,12 +1,10 @@
 package com.tgorgics.demo.persistence.model;
 
-import com.tgorgics.demo.enums.ECurrency;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tgorgics.demo.persistence.model.base.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.PrePersist;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -15,12 +13,11 @@ import java.time.Instant;
 @Data
 public class ExchangeRate extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
-    private ECurrency currencyFrom;
+    private String currencyFrom;
 
-    @Enumerated(EnumType.STRING)
-    private ECurrency currencyTo;
+    private String currencyTo;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Instant validAt;
 
     private BigDecimal buyingRate;

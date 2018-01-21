@@ -1,16 +1,21 @@
 package com.tgorgics.demo.controller;
 
-import com.tgorgics.demo.enums.ECurrency;
 import com.tgorgics.demo.persistence.model.ExchangeRate;
 import com.tgorgics.demo.service.ExchangeRateService;
+import com.tgorgics.demo.service.request.ConversionRequest;
+import com.tgorgics.demo.validation.Currency;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rates")
+@Validated
 public class ExchangeRateController {
 
     private ExchangeRateService exchangeRateService;
@@ -21,12 +26,12 @@ public class ExchangeRateController {
     }
 
     @GetMapping
-    public List<ExchangeRate> getRatesFor(@RequestParam("currencyFrom") String currencyFrom) {
-        return this.exchangeRateService.getExchangeRatesFor(ECurrency.valueOf(currencyFrom));
+    public List<ExchangeRate> getRatesFor(@RequestParam("currencyFrom") @Currency @NotEmpty String currencyFrom) {
+        return this.exchangeRateService.getExchangeRatesFor(currencyFrom);
     }
 
-    @GetMapping("/converter") //TODO: át kell adni a buying vagy sellinget, kell egy currencyFactory component
-    public BigDecimal getRateBetween(@RequestParam("amount") BigDecimal amount, @RequestParam("currencyFrom") String currencyFrom, @RequestParam("currencyTo") String currencyTo) {
-        return this.exchangeRateService.getRateBetween(amount, currencyFrom, currencyTo);
+    @GetMapping("/converter")
+    public BigDecimal getRateBetween(@Valid @RequestBody ConversionRequest request) {
+        return this.exchangeRateService.convert(request);
     }
 }
