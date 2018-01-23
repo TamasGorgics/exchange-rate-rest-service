@@ -1,37 +1,32 @@
 package com.tgorgics.demo.persistence.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tgorgics.demo.persistence.model.base.BaseEntity;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
-import javax.persistence.PrePersist;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Entity
 @Data
 public class ExchangeRate extends BaseEntity {
 
+    @Size(max = 3)
+    @NotEmpty
     private String currencyFrom;
 
+    @Size(max = 3)
+    @NotEmpty
     private String currencyTo;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
-    private Instant validAt;
-
+    @NotNull
     private BigDecimal buyingRate;
 
+    @NotNull
     private BigDecimal sellingRate;
 
-    @PrePersist
-    protected void onCreation() {
-        this.validAt = Instant.now();
-    }
-
-    protected void onUpdate() {
-        this.validAt = Instant.now();
-    }
 }
 
 

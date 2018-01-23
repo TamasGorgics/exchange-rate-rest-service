@@ -31,7 +31,7 @@ public class ExchangeRateController {
     }
 
     @GetMapping("/converter")
-    public BigDecimal getRateBetween(@Valid @RequestBody ConversionRequest request) {
+    public BigDecimal convert(@Valid @RequestBody ConversionRequest request) {
         return this.exchangeRateService.convert(request);
     }
 }

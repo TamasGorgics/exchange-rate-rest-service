@@ -6,6 +6,7 @@ import com.tgorgics.demo.error.exception.InvalidRateTypeException;
 import com.tgorgics.demo.persistence.model.ExchangeRate;
 import com.tgorgics.demo.persistence.repository.ExchangeRateRepository;
 import com.tgorgics.demo.service.request.ConversionRequest;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
