@@ -10,7 +10,15 @@ spring:
         database-platform: org.hibernate.dialect.Oracle10gDialect
         show-sql: false
         hibernate:
-            ddl-auto: create
+            ddl-auto: create #none
+        properties:
+            javax:
+                persistence:
+                    schema-generation:
+                        create-source: metadata
+                        scripts:
+                            action: create
+                            create-target: schema.sql
     mvc:
         throw-exception-if-no-handler-found: true
 server:
