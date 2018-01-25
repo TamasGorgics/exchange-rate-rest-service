@@ -22,3 +22,5 @@ insert into exchange_rate(id, currency_from, currency_to, selling_rate, buying_r
 insert into exchange_rate(id, currency_from, currency_to, selling_rate, buying_rate) values (hibernate_sequence.nextval, 'NOK', 'USD', 0.14, 0.10);
 insert into exchange_rate(id, currency_from, currency_to, selling_rate, buying_rate) values (hibernate_sequence.nextval, 'NOK', 'HUF', 35.26, 30.12);
 insert into exchange_rate(id, currency_from, currency_to, selling_rate, buying_rate) values (hibernate_sequence.nextval, 'NOK', 'SEK', 1.12, 0.92);
+
+commit;
