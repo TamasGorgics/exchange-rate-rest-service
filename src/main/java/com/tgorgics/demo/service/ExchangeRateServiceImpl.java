@@ -25,12 +25,24 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     @Override
     public List<ExchangeRate> getExchangeRatesFor(String currencyFrom) {
-        return this.exchangeRateRepository.findByCurrencyFrom(currencyFrom);
+		List<ExchangeRate> result = this.exchangeRateRepository.findByCurrencyFrom(currencyFrom);
+		
+		if (result.isEmpty()) {
+			throw new ExchangeRateNotFound(currencyFrom);
+		}
+		
+        return result;
     }
 
     @Override
     public ExchangeRate getRateBetween(String currencyFrom, String currencyTo) {
-        return this.exchangeRateRepository.findByCurrencyFromAndCurrencyTo(currencyFrom, currencyTo);
+		ExchangeRate result = this.exchangeRateRepository.findByCurrencyFromAndCurrencyTo(currencyFrom, currencyTo);
+		
+		if (result == null) {
+			throw new ExchangeRateNotFound(currencyFrom, currencyTo);
+		}
+		
+        return result;
     }
 
     @Override

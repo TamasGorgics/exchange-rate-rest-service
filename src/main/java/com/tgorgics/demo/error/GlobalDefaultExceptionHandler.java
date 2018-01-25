@@ -45,7 +45,7 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
 
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        String error = String.format("Could not found handler to fulfil request: %s", ex.getRequestURL());
+        String error = String.format("Could not find handler to fulfil request: %s", ex.getRequestURL());
         ErrorDetails errorDetails = ErrorDetails.builder().status(HttpStatus.BAD_REQUEST).error(error).message(ex.getLocalizedMessage()).build();
 
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
@@ -75,7 +75,13 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(ExchangeRateNotFound.class)
     public ResponseEntity<ErrorDetails> handleExchangeRateNotFound(ExchangeRateNotFound ex) {
-        String error = String.format("Cannot find exchange rate from %s to %s", ex.getCurrencyFrom(), ex.getCurrencyTo());
+		String error;
+		if (ex.getCurrencyTo() != null) {
+			error = String.format("Cannot find exchange rate from %s to %s", ex.getCurrencyFrom(), ex.getCurrencyTo());
+		} else {
+			 error = String.format("Cannot find any exchange rates for %s", ex.getCurrencyFrom());
+		}
+        
         ErrorDetails errorDetails = ErrorDetails.builder().status(HttpStatus.NOT_FOUND).error(error).message(ex.getLocalizedMessage()).build();
 
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());

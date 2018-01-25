@@ -15,4 +15,10 @@ public class ExchangeRateNotFound extends RuntimeException {
         this.currencyFrom = currencyFrom;
         this.currencyTo = currencyTo;
     }
+	
+	public ExchangeRateNotFound(String currencyFrom) {
+        super(String.format("Cannot find any exchange rates for %s", currencyFrom));
+        this.currencyFrom = currencyFrom;
+        this.currencyTo = null;
+    }
 }
