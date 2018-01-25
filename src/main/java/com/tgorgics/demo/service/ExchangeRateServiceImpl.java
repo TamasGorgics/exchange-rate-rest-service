@@ -36,6 +36,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public BigDecimal convert(ConversionRequest request) {
         ExchangeRate exchangeRate = this.getRateBetween(request.getCurrencyFrom(), request.getCurrencyTo());
+		
+		if (exchangeRate == null) {
+			throw new ExchangeRateNotFound(request.getCurrencyFrom(), request.getCurrencyTo());
+		}
+		
         BigDecimal rate = null;
         RateType rateType = null;
         try {

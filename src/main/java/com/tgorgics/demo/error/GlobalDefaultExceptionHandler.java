@@ -67,7 +67,7 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(InvalidRateTypeException.class)
     public ResponseEntity<ErrorDetails> handleInvalidRateType(InvalidRateTypeException ex) {
-        String error = String.format("Invalid exchange rate type: %s. Type can only be 'buying' or 'selling'", ex.getRateType());
+        String error = String.format("Invalid exchange rate type: %s. Type can only be 'BUYING' or 'SELLING'", ex.getRateType());
         ErrorDetails errorDetails = ErrorDetails.builder().status(HttpStatus.BAD_REQUEST).error(error).message(ex.getLocalizedMessage()).build();
 
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
@@ -76,7 +76,7 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
     @ExceptionHandler(ExchangeRateNotFound.class)
     public ResponseEntity<ErrorDetails> handleExchangeRateNotFound(ExchangeRateNotFound ex) {
         String error = String.format("Cannot find exchange rate from %s to %s", ex.getCurrencyFrom(), ex.getCurrencyTo());
-        ErrorDetails errorDetails = ErrorDetails.builder().status(HttpStatus.BAD_REQUEST).error(error).message(ex.getLocalizedMessage()).build();
+        ErrorDetails errorDetails = ErrorDetails.builder().status(HttpStatus.NOT_FOUND).error(error).message(ex.getLocalizedMessage()).build();
 
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
