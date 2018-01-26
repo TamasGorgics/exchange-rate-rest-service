@@ -11,14 +11,6 @@ spring:
         show-sql: false
         hibernate:
             ddl-auto: create #none
-        properties:
-            javax:
-                persistence:
-                    schema-generation:
-                        create-source: metadata
-                        scripts:
-                            action: create
-                            create-target: schema.sql
     mvc:
         throw-exception-if-no-handler-found: true
 server:

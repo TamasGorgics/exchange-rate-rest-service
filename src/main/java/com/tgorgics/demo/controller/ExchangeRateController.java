@@ -26,7 +26,7 @@ public class ExchangeRateController {
     }
 
     @GetMapping
-    public List<ExchangeRate> getRatesFor(@RequestParam("currencyFrom") @Currency @NotEmpty String currencyFrom) {
+    public List<ExchangeRate> getRatesFor(@RequestParam("currencyFrom") @NotEmpty @Currency String currencyFrom) {
         return this.exchangeRateService.getExchangeRatesFor(currencyFrom);
     }
 

@@ -70,5 +70,4 @@ public class ExchangeRateControllerTest {
                 .andExpect(jsonPath("$[0].sellingRate", is(31.72)));
     }
 
-    // TODO another controller test
 }
